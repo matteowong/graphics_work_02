@@ -9,7 +9,7 @@
 void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
   //swap x0,y0 and x1,y1 if necessary
   if (x0>x1) {
-    printf("swap\n");
+    //printf("swap\n");
     int temp=x0;
     x0=x1;
     x1=temp;
@@ -23,7 +23,7 @@ void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
   }
   //octant 1
   int oct=which_oct(x0,y0,x1,y1);
-  printf("which_oct: %d\n",oct);
+  //printf("which_oct: %d\n",oct);
 
   int x,y,A,B,d;
   x=x0;
@@ -102,7 +102,7 @@ int which_oct(int x0, int y0, int x1, int y1) {
   if (x0==x1)
     return 2;
   double slope=((double)y1-y0)/(x1-x0);
-  printf("slope: %f\n",slope);
+  //printf("slope: %f\n",slope);
   if (slope>=1)
     return 2;
   else if (slope>=0)
