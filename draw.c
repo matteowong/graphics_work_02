@@ -21,8 +21,8 @@ void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
     y0=y1;
     y1=temp;
   }
-  //octant 1
-  int oct=which_oct(x0,y0,x1,y1);
+  
+  //int oct=which_oct(x0,y0,x1,y1);
   //printf("which_oct: %d\n",oct);
 
   int x,y,A,B,d;
@@ -31,74 +31,78 @@ void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
   A=y1-y0;
   B=-(x1-x0);
 
-  if (oct==1) {
-    d=2*A+B;
-    while (x<=x1) {
-      plot(s,c,x,y);
-      if (d>0) {
+  if (A*B<=0) {//positive slope octant 1
+    if (abs(A)<=abs(B)) {
+      d=2*A+B;
+      while (x<=x1) {
+	plot(s,c,x,y);
+	if (d>0) {
+	  y++;
+	  d+=2*B;
+	}
+	x++;
+	d+=2*A;
+      }
+    }
+
+    else if (abs(A)>abs(B)) {
+      d=A+2*B;
+      while(y<=y1) {
+	plot(s,c,x,y);
+	if (d<0) {
+	  x++;
+	  d+=2*A;
+	}
 	y++;
 	d+=2*B;
       }
-      x++;
-      d+=2*A;
     }
   }
-
-  else if (oct==2) {
-    d=A+2*B;
-    while(y<=y1) {
-      plot(s,c,x,y);
-      if (d<0) {
+  else {
+    if (abs(A)<=abs(B)) {
+      //octant 8, -1<m<0
+  
+      d=2*A-B;
+      while (x<=x1) {
+	plot(s,c,x,y);
+	if (d<0) {
+	  y--;
+	  d-=2*B;
+	}
 	x++;
 	d+=2*A;
       }
-      y++;
-      d+=2*B;
     }
-  }
-  else if (oct==8) {
-    //octant 8, -1<m<0
-  
-    d=2*A-B;
-    while (x<=x1) {
-      plot(s,c,x,y);
-      if (d<0) {
+    else if (abs(A)>abs(B)) {
+      //octant 7, m<-1
+      d=A-2*B;
+      while (y>=y1) {
+	plot(s,c,x,y);
+	if (d>0) {
+	  x++;
+	  d+=2*A;
+	}
 	y--;
 	d-=2*B;
       }
-      x++;
-      d+=2*A;
-    }
-  }
-  else if (oct==7) {
-    //octant 7, m<-1
-    d=A-2*B;
-    while (y>=y1) {
-      plot(s,c,x,y);
-      if (d>0) {
-	x++;
-	d+=2*A;
-      }
-      y--;
-      d-=2*B;
     }
   }
   /*else if (oct==-1) {
     if (y>y1) {
-      y0=y1;
-      y1=y;
-      y=y0;
+    y0=y1;
+    y1=y;
+    y=y0;
     }
     while (y<=y1) {
-      plot(s,c,x,y);
-      y++;
+    plot(s,c,x,y);
+    y++;
     }
     }*/
 }
 
 
 //assume x0<x1
-int which_oct(int x0, int y0, int x1, int y1) {
+/*int which_oct(int x0, int y0, int x1, int y1) {
   if (x0==x1)
     return 2;
   double slope=((double)y1-y0)/(x1-x0);
@@ -113,6 +117,6 @@ int which_oct(int x0, int y0, int x1, int y1) {
     return 7;
   return -1;
 
-}
+  }*/
 
 

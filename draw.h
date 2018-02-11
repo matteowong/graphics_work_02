@@ -4,6 +4,6 @@
 #define DRAW_H
 
 void draw_line(int x0, int y0, int x1, int y1, screen s, color c);
-int which_oct(int,int,int,int);
+//int which_oct(int,int,int,int);
 
 #endif
